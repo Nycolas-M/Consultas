@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">Sistema Consultas</div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="consultas.html" class="active">Consultas</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="consultas-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h1 class="section-title">Consultas</h1>
+                <button class="btn btn-primary" onclick="abrirModal()">Nova Consulta</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Paciente</th>
+                            <th>Médico</th>
+                            <th>Data/Hora</th>
+                            <th>Especialidade</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>João Silva</td>
+                            <td>Dr. João Silva</td>
+                            <td>15/12/2024 14:00</td>
+                            <td>Cardiologia</td>
+                            <td>R$ 150,00</td>
+                            <td><span class="status-badge status-agendada">Agendada</span></td>
+                            <td>
+                                <button class="btn btn-success">Confirmar</button>
+                                <button class="btn btn-warning">Editar</button>
+                                <button class="btn btn-danger">Cancelar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Maria Santos</td>
+                            <td>Dr. João Silva</td>
+                            <td>16/12/2024 09:00</td>
+                            <td>Cardiologia</td>
+                            <td>R$ 120,00</td>
+                            <td><span class="status-badge status-realizada">Realizada</span></td>
+                            <td>
+                                <button class="btn btn-primary">Ver Prontuário</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal Nova Consulta -->
+        <div id="modalConsulta" class="hidden">
+            <div class="form-section">
+                <h2 class="section-title">Nova Consulta</h2>
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Paciente:</label>
+                            <select class="form-control">
+                                <option>Selecione um paciente</option>
+                                <option>João Silva</option>
+                                <option>Maria Santos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Médico:</label>
+                            <select class="form-control">
+                                <option>Dr. João Silva</option>
+                                <option>Dra. Ana Costa</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Data:</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Hora:</label>
+                            <input type="time" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-danger" onclick="fecharModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Agendar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function abrirModal() {
+            document.getElementById('modalConsulta').classList.remove('hidden');
+        }
+
+        function fecharModal() {
+            document.getElementById('modalConsulta').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

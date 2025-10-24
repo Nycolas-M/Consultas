@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Sistema de Consultas</h1>
+            <div id="message" class="alert hidden"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" class="form-control" placeholder="Sua senha" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </form>
+            
+            <div class="text-center mt-2">
+                <a href="#" style="color: #666; text-decoration: none;">Esqueci minha senha</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const message = document.getElementById('message');
+            
+            if(email && senha) {
+                message.textContent = 'Login realizado com sucesso!';
+                message.className = 'alert alert-success';
+                message.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            } else {
+                message.textContent = 'Preencha todos os campos!';
+                message.className = 'alert alert-error';
+                message.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
