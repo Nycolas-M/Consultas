@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exames</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <button onclick="navegar('consultas.html')">Consultas</button>
+  <button onclick="navegar('pacientes.html')">Pacientes</button>
+  <button onclick="navegar('medicos.html')">Médicos</button>
+  <button onclick="navegar('exames.html')">Exames</button>
+  <button onclick="logout()">Sair</button>
+</nav>
+
+<div class="container">
+  <h1>Exames</h1>
+  <p>Controle de exames solicitados e resultados.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Paciente</th>
+        <th>Médico</th>
+        <th>Tipo</th>
+        <th>Data Solicitação</th>
+        <th>Data Realização</th>
+        <th>Laboratório</th>
+        <th>Resultado</th>
+        <th>Valor</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaExames"></tbody>
+  </table>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Dados simulados
+const exames = [
+  {id:1, paciente:"Ana", medico:"Dr. Luiz", tipo:"Hemograma", solicitacao:"2025-10-01", realizacao:"2025-10-02", lab:"BioVida", resultado:"Normal", valor:"90", status:"Finalizado"},
+  {id:2, paciente:"Carlos", medico:"Dra. Júlia", tipo:"Raio-X", solicitacao:"2025-10-03", realizacao:"2025-10-03", lab:"Imagem+ ", resultado:"Sem alterações", valor:"120", status:"Finalizado"},
+  {id:3, paciente:"Marina", medico:"Dr. João", tipo:"Ultrassom", solicitacao:"2025-10-04", realizacao:"2025-10-05", lab:"UltraScan", resultado:"Normal", valor:"150", status:"Finalizado"},
+  {id:4, paciente:"Felipe", medico:"Dra. Luana", tipo:"Glicemia", solicitacao:"2025-10-06", realizacao:"2025-10-06", lab:"BioVida", resultado:"Alta", valor:"80", status:"Em análise"},
+  {id:5, paciente:"Jéssica", medico:"Dr. Bruno", tipo:"Colesterol", solicitacao:"2025-10-07", realizacao:"2025-10-07", lab:"Laboratório Alpha", resultado:"Normal", valor:"100", status:"Finalizado"},
+  {id:6, paciente:"Paulo", medico:"Dr. Rafael", tipo:"TSH", solicitacao:"2025-10-08", realizacao:"2025-10-09", lab:"Lab Vida", resultado:"Normal", valor:"130", status:"Finalizado"},
+  {id:7, paciente:"Carla", medico:"Dra. Sofia", tipo:"Vitamina D", solicitacao:"2025-10-09", realizacao:"2025-10-10", lab:"Alpha", resultado:"Baixo", valor:"160", status:"Finalizado"},
+  {id:8, paciente:"Renato", medico:"Dr. Diego", tipo:"PCR", solicitacao:"2025-10-10", realizacao:"2025-10-11", lab:"Vida+", resultado:"Positivo", valor:"110", status:"Finalizado"},
+  {id:9, paciente:"Alice", medico:"Dr. André", tipo:"Ferritina", solicitacao:"2025-10-11", realizacao:"2025-10-11", lab:"BioCheck", resultado:"Normal", valor:"90", status:"Finalizado"},
+  {id:10, paciente:"Thiago", medico:"Dra. Paula", tipo:"Hemoglobina", solicitacao:"2025-10-12", realizacao:"2025-10-13", lab:"LabMed", resultado:"Baixo", valor:"100", status:"Em análise"},
+  {id:11, paciente:"Lara", medico:"Dr. Hugo", tipo:"Creatinina", solicitacao:"2025-10-12", realizacao:"2025-10-13", lab:"BioVida", resultado:"Normal", valor:"85", status:"Finalizado"},
+  {id:12, paciente:"Samuel", medico:"Dr. Igor", tipo:"TGO/TGP", solicitacao:"2025-10-13", realizacao:"2025-10-14", lab:"Alpha", resultado:"Leve aumento", valor:"100", status:"Finalizado"},
+  {id:13, paciente:"Camila", medico:"Dra. Elisa", tipo:"Densitometria", solicitacao:"2025-10-14", realizacao:"2025-10-15", lab:"ScanPlus", resultado:"Normal", valor:"200", status:"Finalizado"},
+  {id:14, paciente:"Jorge", medico:"Dr. Tiago", tipo:"Ecocardiograma", solicitacao:"2025-10-15", realizacao:"2025-10-16", lab:"CardioCheck", resultado:"Normal", valor:"300", status:"Finalizado"},
+  {id:15, paciente:"Tatiane", medico:"Dr. Vitor", tipo:"Eletrocardiograma", solicitacao:"2025-10-15", realizacao:"2025-10-16", lab:"CardioCheck", resultado:"Alterado", valor:"180", status:"Em análise"},
+  {id:16, paciente:"Rodrigo", medico:"Dra. Karen", tipo:"Hemocultura", solicitacao:"2025-10-17", realizacao:"2025-10-18", lab:"BioMed", resultado:"Negativo", valor:"210", status:"Finalizado"},
+  {id:17, paciente:"Fernanda", medico:"Dr. Caio", tipo:"Tomografia", solicitacao:"2025-10-18", realizacao:"2025-10-19", lab:"Scan+", resultado:"Normal", valor:"450", status:"Finalizado"},
+  {id:18, paciente:"Roberta", medico:"Dr. Leo", tipo:"Ressonância", solicitacao:"2025-10-18", realizacao:"2025-10-20", lab:"ImagemMax", resultado:"Normal", valor:"600", status:"Finalizado"},
+  {id:19, paciente:"Igor", medico:"Dr. Pedro", tipo:"Gasometria", solicitacao:"2025-10-19", realizacao:"2025-10-19", lab:"LabCheck", resultado:"Normal", valor:"70", status:"Finalizado"},
+  {id:20, paciente:"Marcos", medico:"Dra. Beatriz", tipo:"Triglicerídeos", solicitacao:"2025-10-20", realizacao:"2025-10-21", lab:"BioVida", resultado:"Alto", valor:"95", status:"Em análise"}
+];
+
+const corpoTabela = document.getElementById("tabelaExames");
+exames.forEach(exame => {
+  const linha = document.createElement("tr");
+  linha.innerHTML = `
+    <td>${exame.id}</td>
+    <td>${exame.paciente}</td>
+    <td>${exame.medico}</td>
+    <td>${exame.tipo}</td>
+    <td>${exame.solicitacao}</td>
+    <td>${exame.realizacao}</td>
+    <td>${exame.lab}</td>
+    <td>${exame.resultado}</td>
+    <td>R$ ${exame.valor}</td>
+    <td>${exame.status}</td>
+  `;
+  corpoTabela.appendChild(linha);
+});
+</script>
+</body>
+</html>
