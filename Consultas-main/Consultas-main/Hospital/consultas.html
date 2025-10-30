@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <header class="header">
+        <nav class="navbar container">
+            <div class="logo">MedSchedule Pro</div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="consultas.html" class="active">Consultas</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <div class="user-info">
+                <span>Dr. Admin</span>
+                <div class="user-avatar">DA</div>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="consultas-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h1 class="section-title">Consultas</h1>
+                <button class="btn btn-primary btn-sm" onclick="abrirModalConsulta()">
+                    + Nova Consulta
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paciente</th>
+                            <th>Médico</th>
+                            <th>Data/Hora</th>
+                            <th>Especialidade</th>
+                            <th>Valor</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>001</td><td>João Silva</td><td>Dr. João Silva</td><td>15/12/2024 08:00</td><td>Cardiologia</td><td>R$ 180,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>002</td><td>Maria Santos</td><td>Dra. Ana Costa</td><td>15/12/2024 08:30</td><td>Pediatria</td><td>R$ 120,00</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                        <tr><td>003</td><td>Pedro Costa</td><td>Dr. Carlos Lima</td><td>15/12/2024 09:00</td><td>Ortopedia</td><td>R$ 200,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>004</td><td>Ana Oliveira</td><td>Dra. Mariana Souza</td><td>15/12/2024 09:30</td><td>Dermatologia</td><td>R$ 150,00</td><td><span class="status-badge status-realizada">Realizada</span></td><td><button class="btn btn-info btn-sm">👁</button></td></tr>
+                        <tr><td>005</td><td>Carlos Souza</td><td>Dr. João Silva</td><td>15/12/2024 10:00</td><td>Cardiologia</td><td>R$ 180,00</td><td><span class="status-badge status-cancelada">Cancelada</span></td><td><button class="btn btn-danger btn-sm">✕</button></td></tr>
+                        <tr><td>006</td><td>Fernanda Lima</td><td>Dra. Ana Costa</td><td>15/12/2024 10:30</td><td>Pediatria</td><td>R$ 120,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>007</td><td>Ricardo Alves</td><td>Dr. Carlos Lima</td><td>15/12/2024 11:00</td><td>Ortopedia</td><td>R$ 200,00</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                        <tr><td>008</td><td>Juliana Moraes</td><td>Dra. Mariana Souza</td><td>15/12/2024 11:30</td><td>Dermatologia</td><td>R$ 150,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>009</td><td>Roberto Santos</td><td>Dr. João Silva</td><td>15/12/2024 14:00</td><td>Cardiologia</td><td>R$ 180,00</td><td><span class="status-badge status-realizada">Realizada</span></td><td><button class="btn btn-info btn-sm">👁</button></td></tr>
+                        <tr><td>010</td><td>Patrícia Rocha</td><td>Dra. Ana Costa</td><td>15/12/2024 14:30</td><td>Pediatria</td><td>R$ 120,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>011</td><td>Bruno Ferreira</td><td>Dr. Carlos Lima</td><td>15/12/2024 15:00</td><td>Ortopedia</td><td>R$ 200,00</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                        <tr><td>012</td><td>Amanda Dias</td><td>Dra. Mariana Souza</td><td>15/12/2024 15:30</td><td>Dermatologia</td><td>R$ 150,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>013</td><td>Lucas Martins</td><td>Dr. João Silva</td><td>15/12/2024 16:00</td><td>Cardiologia</td><td>R$ 180,00</td><td><span class="status-badge status-realizada">Realizada</span></td><td><button class="btn btn-info btn-sm">👁</button></td></tr>
+                        <tr><td>014</td><td>Beatriz Cruz</td><td>Dra. Ana Costa</td><td>15/12/2024 16:30</td><td>Pediatria</td><td>R$ 120,00</td><td><span class="status-badge status-cancelada">Cancelada</span></td><td><button class="btn btn-danger btn-sm">✕</button></td></tr>
+                        <tr><td>015</td><td>Rodrigo Silva</td><td>Dr. Carlos Lima</td><td>15/12/2024 17:00</td><td>Ortopedia</td><td>R$ 200,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>016</td><td>Tatiane Oliveira</td><td>Dra. Mariana Souza</td><td>15/12/2024 17:30</td><td>Dermatologia</td><td>R$ 150,00</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                        <tr><td>017</td><td>Diego Costa</td><td>Dr. João Silva</td><td>15/12/2024 18:00</td><td>Cardiologia</td><td>R$ 180,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>018</td><td>Vanessa Souza</td><td>Dra. Ana Costa</td><td>15/12/2024 18:30</td><td>Pediatria</td><td>R$ 120,00</td><td><span class="status-badge status-realizada">Realizada</span></td><td><button class="btn btn-info btn-sm">👁</button></td></tr>
+                        <tr><td>019</td><td>Gabriel Lima</td><td>Dr. Carlos Lima</td><td>15/12/2024 19:00</td><td>Ortopedia</td><td>R$ 200,00</td><td><span class="status-badge status-agendada">Agendada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        <tr><td>020</td><td>Camila Alves</td><td>Dra. Mariana Souza</td><td>15/12/2024 19:30</td><td>Dermatologia</td><td>R$ 150,00</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal (mantido igual) -->
+    </main>
+
+    <script>
+        // Menu mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        function abrirModalConsulta() {
+            alert('Modal de nova consulta - Em desenvolvimento');
+        }
+    </script>
+</body>
+</html>

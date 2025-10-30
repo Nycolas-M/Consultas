@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ESTILOS ESPECÍFICOS DA AGENDA */
+        .calendar {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .calendar-day {
+            padding: 10px;
+            border: 1px solid #e1e8ed;
+            min-height: 80px;
+            background: #f8f9fa;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day.header {
+            background: #3498db;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            padding: 12px 8px;
+        }
+
+        .calendar-day.today {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            font-weight: bold;
+        }
+
+        .calendar-day.vazio {
+            background: #f8f9fa;
+            border: 1px solid #e1e8ed;
+        }
+
+        .consultation-item {
+            background: #e8f5e8;
+            border: 1px solid #c3e6cb;
+            border-radius: 3px;
+            padding: 2px 4px;
+            margin: 2px 0;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .consultation-item:hover {
+            background: #d4edda;
+        }
+
+        .day-number {
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-day {
+                min-height: 60px;
+                padding: 6px;
+                font-size: 0.8rem;
+            }
+            
+            .consultation-item {
+                font-size: 0.6rem;
+                padding: 1px 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">MedSchedule Pro</div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="consultas.html">Consultas</a></li>
+                <li><a href="agenda.html" class="active">Agenda</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <div class="user-info">
+                <span>Dr. Admin</span>
+                <div class="user-avatar">DA</div>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="calendar">
+            <div class="calendar-header">
+                <h1 class="section-title" id="mesAno">Carregando...</h1>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-warning btn-sm" onclick="mudarMes(-1)">‹ Anterior</button>
+                    <button class="btn btn-primary btn-sm" onclick="hoje()">Hoje</button>
+                    <button class="btn btn-warning btn-sm" onclick="mudarMes(1)">Próximo ›</button>
+                </div>
+            </div>
+
+            <div class="calendar-grid" id="calendario">
+                <!-- O JavaScript vai gerar o calendário aqui -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let dataAtual = new Date();
+        let ano = dataAtual.getFullYear();
+        let mes = dataAtual.getMonth();
+
+        function gerarCalendario(ano, mes) {
+            console.log('Gerando calendário para:', ano, mes);
+            
+            const meses = [
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            ];
+            
+            // Atualizar título
+            document.getElementById('mesAno').textContent = `${meses[mes]} ${ano}`;
+            
+            const primeiroDia = new Date(ano, mes, 1);
+            const ultimoDia = new Date(ano, mes + 1, 0);
+            const diasNoMes = ultimoDia.getDate();
+            const primeiroDiaSemana = primeiroDia.getDay(); // 0 = Domingo, 1 = Segunda...
+            
+            const calendario = document.getElementById('calendario');
+            calendario.innerHTML = '';
+            
+            // Cabeçalho dos dias da semana
+            const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            diasSemana.forEach(dia => {
+                const div = document.createElement('div');
+                div.className = 'calendar-day header';
+                div.textContent = dia;
+                calendario.appendChild(div);
+            });
+            
+            // Dias vazios no início do mês
+            for (let i = 0; i < primeiroDiaSemana; i++) {
+                const div = document.createElement('div');
+                div.className = 'calendar-day vazio';
+                calendario.appendChild(div);
+            }
+            
+            // Dias do mês
+            for (let dia = 1; dia <= diasNoMes; dia++) {
+                const div = document.createElement('div');
+                div.className = 'calendar-day';
+                
+                // Verificar se é hoje
+                const hoje = new Date();
+                if (dia === hoje.getDate() && mes === hoje.getMonth() && ano === hoje.getFullYear()) {
+                    div.classList.add('today');
+                }
+                
+                // Adicionar número do dia
+                const spanDia = document.createElement('span');
+                spanDia.className = 'day-number';
+                spanDia.textContent = dia;
+                div.appendChild(spanDia);
+                
+                // Adicionar consultas de exemplo (20 consultas distribuídas)
+                adicionarConsultasExemplo(div, dia, mes, ano);
+                
+                calendario.appendChild(div);
+            }
+        }
+        
+        function adicionarConsultasExemplo(div, dia, mes, ano) {
+            // Consultas fixas para demonstração
+            const consultas = [
+                {dia: 1, hora: "08:00", paciente: "João Silva"},
+                {dia: 1, hora: "14:00", paciente: "Maria Santos"},
+                {dia: 2, hora: "09:30", paciente: "Pedro Costa"},
+                {dia: 3, hora: "10:00", paciente: "Ana Oliveira"},
+                {dia: 5, hora: "11:00", paciente: "Carlos Souza"},
+                {dia: 5, hora: "15:30", paciente: "Fernanda Lima"},
+                {dia: 7, hora: "08:30", paciente: "Ricardo Alves"},
+                {dia: 8, hora: "13:00", paciente: "Juliana Moraes"},
+                {dia: 10, hora: "16:00", paciente: "Roberto Santos"},
+                {dia: 12, hora: "09:00", paciente: "Patrícia Rocha"},
+                {dia: 12, hora: "14:30", paciente: "Bruno Ferreira"},
+                {dia: 15, hora: "10:30", paciente: "Amanda Dias"},
+                {dia: 15, hora: "17:00", paciente: "Lucas Martins"},
+                {dia: 18, hora: "11:30", paciente: "Beatriz Cruz"},
+                {dia: 20, hora: "08:00", paciente: "Rodrigo Silva"},
+                {dia: 20, hora: "15:00", paciente: "Tatiane Oliveira"},
+                {dia: 22, hora: "12:00", paciente: "Diego Costa"},
+                {dia: 25, hora: "09:30", paciente: "Vanessa Souza"},
+                {dia: 25, hora: "16:30", paciente: "Gabriel Lima"},
+                {dia: 28, hora: "14:00", paciente: "Camila Alves"}
+            ];
+            
+            // Adicionar consultas para este dia
+            consultas.forEach(consulta => {
+                if (consulta.dia === dia) {
+                    const item = document.createElement('div');
+                    item.className = 'consultation-item';
+                    item.innerHTML = `${consulta.hora} - ${consulta.paciente}`;
+                    item.onclick = function() {
+                        alert(`Consulta: ${consulta.paciente}\nData: ${dia}/${mes + 1}/${ano}\nHora: ${consulta.hora}`);
+                    };
+                    div.appendChild(item);
+                }
+            });
+        }
+        
+        function mudarMes(direcao) {
+            console.log('Mudando mês:', direcao);
+            mes += direcao;
+            
+            // Ajustar ano se necessário
+            if (mes > 11) {
+                mes = 0;
+                ano++;
+            } else if (mes < 0) {
+                mes = 11;
+                ano--;
+            }
+            
+            gerarCalendario(ano, mes);
+        }
+        
+        function hoje() {
+            console.log('Indo para hoje');
+            dataAtual = new Date();
+            ano = dataAtual.getFullYear();
+            mes = dataAtual.getMonth();
+            gerarCalendario(ano, mes);
+        }
+        
+        // Menu mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Inicializar calendário quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página carregada, iniciando calendário...');
+            gerarCalendario(ano, mes);
+        });
+    </script>
+</body>
+</html>

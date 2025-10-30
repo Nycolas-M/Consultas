@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médicos - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <header class="header">
+        <nav class="navbar container">
+            <div class="logo">MedSchedule Pro</div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="consultas.html">Consultas</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html" class="active">Médicos</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <div class="user-info">
+                <span>Dr. Admin</span>
+                <div class="user-avatar">DA</div>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+
+    <main class="container">
+        <div class="consultas-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h1 class="section-title">Médicos Cadastrados (20)</h1>
+                <button class="btn btn-primary btn-sm" onclick="abrirModalMedico()">
+                    + Novo Médico
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CRM</th>
+                            <th>Especialidade</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Agenda</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>001</td><td>Dr. João Silva</td><td>CRM/SP 123456</td><td>Cardiologia</td><td>(11) 9999-1111</td><td>joao@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>002</td><td>Dra. Ana Costa</td><td>CRM/SP 234567</td><td>Pediatria</td><td>(11) 9888-2222</td><td>ana@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>003</td><td>Dr. Carlos Lima</td><td>CRM/SP 345678</td><td>Ortopedia</td><td>(11) 9777-3333</td><td>carlos@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>004</td><td>Dra. Mariana Souza</td><td>CRM/SP 456789</td><td>Dermatologia</td><td>(11) 9666-4444</td><td>mariana@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>005</td><td>Dr. Roberto Santos</td><td>CRM/SP 567890</td><td>Neurologia</td><td>(11) 9555-5555</td><td>roberto@clinica.com</td><td>Ter a Qui</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>006</td><td>Dra. Patricia Rocha</td><td>CRM/SP 678901</td><td>Ginecologia</td><td>(11) 9444-6666</td><td>patricia@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>007</td><td>Dr. Bruno Ferreira</td><td>CRM/SP 789012</td><td>Oftalmologia</td><td>(11) 9333-7777</td><td>bruno@clinica.com</td><td>Seg a Qui</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>008</td><td>Dra. Amanda Dias</td><td>CRM/SP 890123</td><td>Psiquiatria</td><td>(11) 9222-8888</td><td>amanda@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>009</td><td>Dr. Lucas Martins</td><td>CRM/SP 901234</td><td>Urologia</td><td>(11) 9111-9999</td><td>lucas@clinica.com</td><td>Ter a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>010</td><td>Dra. Beatriz Cruz</td><td>CRM/SP 012345</td><td>Endocrinologia</td><td>(11) 9000-0000</td><td>beatriz@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>011</td><td>Dr. Rodrigo Silva</td><td>CRM/SP 112233</td><td>Cardiologia</td><td>(11) 9777-1111</td><td>rodrigo@clinica.com</td><td>Seg a Qui</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>012</td><td>Dra. Tatiane Oliveira</td><td>CRM/SP 223344</td><td>Pediatria</td><td>(11) 9666-2222</td><td>tatiane@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>013</td><td>Dr. Diego Costa</td><td>CRM/SP 334455</td><td>Ortopedia</td><td>(11) 9555-3333</td><td>diego@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>014</td><td>Dra. Vanessa Souza</td><td>CRM/SP 445566</td><td>Dermatologia</td><td>(11) 9444-4444</td><td>vanessa@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>015</td><td>Dr. Gabriel Lima</td><td>CRM/SP 556677</td><td>Neurologia</td><td>(11) 9333-5555</td><td>gabriel@clinica.com</td><td>Ter a Qui</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>016</td><td>Dra. Camila Alves</td><td>CRM/SP 667788</td><td>Ginecologia</td><td>(11) 9222-6666</td><td>camila@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>017</td><td>Dr. Marcelo Rocha</td><td>CRM/SP 778899</td><td>Oftalmologia</td><td>(11) 9111-7777</td><td>marcelo@clinica.com</td><td>Seg a Qui</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>018</td><td>Dra. Juliana Moraes</td><td>CRM/SP 889900</td><td>Psiquiatria</td><td>(11) 9000-8888</td><td>juliana@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>019</td><td>Dr. Ricardo Alves</td><td>CRM/SP 990011</td><td>Urologia</td><td>(11) 9888-9999</td><td>ricardo@clinica.com</td><td>Ter a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>020</td><td>Dra. Fernanda Lima</td><td>CRM/SP 001122</td><td>Endocrinologia</td><td>(11) 9777-0000</td><td>fernanda@clinica.com</td><td>Seg a Sex</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function abrirModalMedico() {
+            alert('Modal novo médico - Em desenvolvimento');
+        }
+    </script>
+</body>
+</html>

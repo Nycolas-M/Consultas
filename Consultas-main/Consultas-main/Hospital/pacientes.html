@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes - Sistema de Consultas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar container">
+            <div class="logo">MedSchedule Pro</div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="consultas.html">Consultas</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="pacientes.html" class="active">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <div class="user-info">
+                <span>Dr. Admin</span>
+                <div class="user-avatar">DA</div>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="consultas-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h1 class="section-title">Pacientes Cadastrados (20)</h1>
+                <button class="btn btn-primary btn-sm" onclick="abrirModalPaciente()">
+                    + Novo Paciente
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Idade</th>
+                            <th>Convênio</th>
+                            <th>Última Consulta</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>001</td><td>João Silva</td><td>(11) 9999-8888</td><td>joao@email.com</td><td>45 anos</td><td>Unimed</td><td>15/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>002</td><td>Maria Santos</td><td>(11) 9777-6666</td><td>maria@email.com</td><td>32 anos</td><td>Amil</td><td>14/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>003</td><td>Pedro Costa</td><td>(11) 9555-4444</td><td>pedro@email.com</td><td>28 anos</td><td>Bradesco</td><td>13/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>004</td><td>Ana Oliveira</td><td>(11) 9333-2222</td><td>ana@email.com</td><td>35 anos</td><td>SulAmérica</td><td>12/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>005</td><td>Carlos Souza</td><td>(11) 9111-0000</td><td>carlos@email.com</td><td>50 anos</td><td>Unimed</td><td>11/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>006</td><td>Fernanda Lima</td><td>(11) 9888-7777</td><td>fernanda@email.com</td><td>29 anos</td><td>Amil</td><td>10/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>007</td><td>Ricardo Alves</td><td>(11) 9666-5555</td><td>ricardo@email.com</td><td>41 anos</td><td>Particular</td><td>09/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>008</td><td>Juliana Moraes</td><td>(11) 9444-3333</td><td>juliana@email.com</td><td>26 anos</td><td>Bradesco</td><td>08/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>009</td><td>Roberto Santos</td><td>(11) 9222-1111</td><td>roberto@email.com</td><td>38 anos</td><td>Unimed</td><td>07/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>010</td><td>Patrícia Rocha</td><td>(11) 9000-9999</td><td>patricia@email.com</td><td>33 anos</td><td>SulAmérica</td><td>06/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>011</td><td>Bruno Ferreira</td><td>(11) 9777-8888</td><td>bruno@email.com</td><td>31 anos</td><td>Amil</td><td>05/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>012</td><td>Amanda Dias</td><td>(11) 9555-6666</td><td>amanda@email.com</td><td>27 anos</td><td>Unimed</td><td>04/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>013</td><td>Lucas Martins</td><td>(11) 9333-4444</td><td>lucas@email.com</td><td>42 anos</td><td>Bradesco</td><td>03/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>014</td><td>Beatriz Cruz</td><td>(11) 9111-2222</td><td>beatriz@email.com</td><td>36 anos</td><td>Particular</td><td>02/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>015</td><td>Rodrigo Silva</td><td>(11) 9888-0000</td><td>rodrigo@email.com</td><td>39 anos</td><td>Unimed</td><td>01/12/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>016</td><td>Tatiane Oliveira</td><td>(11) 9666-1111</td><td>tatiane@email.com</td><td>30 anos</td><td>Amil</td><td>30/11/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>017</td><td>Diego Costa</td><td>(11) 9444-5555</td><td>diego@email.com</td><td>34 anos</td><td>SulAmérica</td><td>29/11/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>018</td><td>Vanessa Souza</td><td>(11) 9222-7777</td><td>vanessa@email.com</td><td>28 anos</td><td>Unimed</td><td>28/11/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>019</td><td>Gabriel Lima</td><td>(11) 9000-3333</td><td>gabriel@email.com</td><td>47 anos</td><td>Bradesco</td><td>27/11/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                        <tr><td>020</td><td>Camila Alves</td><td>(11) 9777-9999</td><td>camila@email.com</td><td>25 anos</td><td>Amil</td><td>26/11/2024</td><td><button class="btn btn-info btn-sm">✎</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal (manter igual) -->
+    </main>
+
+    <script>
+        function abrirModalPaciente() {
+            alert('Modal novo paciente - Em desenvolvimento');
+        }
+    </script>
+</body>
+</html>

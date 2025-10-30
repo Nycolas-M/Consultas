@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Sistema Médico</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card.primary { border-left-color: #3498db; }
+        .stat-card.success { border-left-color: #27ae60; }
+        .stat-card.warning { border-left-color: #f39c12; }
+        .stat-card.danger { border-left-color: #e74c3c; }
+        .stat-card.info { border-left-color: #17a2b8; }
+        .stat-card.purple { border-left-color: #9b59b6; }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .stat-change.positive { color: #27ae60; }
+        .stat-change.negative { color: #e74c3c; }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-actions {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #495057;
+        }
+
+        .action-btn:hover {
+            background: #e9ecef;
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .today-appointments {
+            margin-top: 2rem;
+        }
+
+        .appointment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #ecf0f1;
+            transition: background 0.2s ease;
+        }
+
+        .appointment-item:hover {
+            background: #f8f9fa;
+        }
+
+        .appointment-time {
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 80px;
+        }
+
+        .appointment-info {
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .appointment-patient {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .appointment-doctor {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .appointment-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+     <header class="header">
+        <nav class="navbar container">
+            <div class="logo">MedSchedule Pro</div>
+            <ul class="nav-menu">
+                <li><a href="inicio.html" class="active">Início</a></li>
+                <li><a href="consultas.html">Consultas</a></li>
+                <li><a href="agenda.html">Agenda</a></li>
+                <li><a href="pacientes.html">Pacientes</a></li>
+                <li><a href="medicos.html">Médicos</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+            <div class="user-info">
+                <span>Dr. Admin</span>
+                <div class="user-avatar">DA</div>
+            </div>
+            <button class="mobile-menu">☰</button>
+        </nav>
+    </header>
+
+    <main class="dashboard container">
+        <div class="dashboard-header">
+            <h1>Dashboard Médico</h1>
+            <div class="date-info">
+                <span id="currentDate">Carregando...</span>
+            </div>
+        </div>
+
+        <!-- ESTATÍSTICAS PRINCIPAIS -->
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <div class="stat-icon">📅</div>
+                <div class="stat-value">20</div>
+                <div class="stat-label">Consultas Hoje</div>
+                <div class="stat-change positive">↑ 12% vs ontem</div>
+            </div>
+            
+            <div class="stat-card success">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value">15</div>
+                <div class="stat-label">Confirmadas</div>
+                <div class="stat-change positive">↑ 8% confirmadas</div>
+            </div>
+            
+            <div class="stat-card warning">
+                <div class="stat-icon">⏰</div>
+                <div class="stat-value">4</div>
+                <div class="stat-label">Pendentes</div>
+                <div class="stat-change negative">↓ 2 pendentes</div>
+            </div>
+            
+            <div class="stat-card danger">
+                <div class="stat-icon">❌</div>
+                <div class="stat-value">1</div>
+                <div class="stat-label">Canceladas</div>
+                <div class="stat-change positive">↓ 50% cancelamentos</div>
+            </div>
+            
+            <div class="stat-card info">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value">R$ 3.2K</div>
+                <div class="stat-label">Receita do Dia</div>
+                <div class="stat-change positive">↑ 15% vs ontem</div>
+            </div>
+            
+            <div class="stat-card purple">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">92%</div>
+                <div class="stat-label">Taxa de Ocupação</div>
+                <div class="stat-change positive">↑ 5% capacidade</div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <!-- CONSULTAS DO DIA - 20 ITENS -->
+            <div class="consultas-section">
+                <div class="section-header">
+                    <h2 class="section-title">Consultas de Hoje</h2>
+                    <span class="section-badge">20 agendamentos</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Horário</th>
+                                <th>Paciente</th>
+                                <th>Médico</th>
+                                <th>Especialidade</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>08:00</td><td>João Silva</td><td>Dr. João Silva</td><td>Cardiologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>08:30</td><td>Maria Santos</td><td>Dra. Ana Costa</td><td>Pediatria</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>09:00</td><td>Pedro Costa</td><td>Dr. Carlos Lima</td><td>Ortopedia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>09:30</td><td>Ana Oliveira</td><td>Dra. Mariana Souza</td><td>Dermatologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>10:00</td><td>Carlos Souza</td><td>Dr. João Silva</td><td>Cardiologia</td><td><span class="status-badge status-cancelada">Cancelada</span></td><td><button class="btn btn-danger btn-sm">✕</button></td></tr>
+                            <tr><td>10:30</td><td>Fernanda Lima</td><td>Dra. Ana Costa</td><td>Pediatria</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>11:00</td><td>Ricardo Alves</td><td>Dr. Carlos Lima</td><td>Ortopedia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>11:30</td><td>Juliana Moraes</td><td>Dra. Mariana Souza</td><td>Dermatologia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>12:00</td><td>Roberto Santos</td><td>Dr. João Silva</td><td>Cardiologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>12:30</td><td>Patrícia Rocha</td><td>Dra. Ana Costa</td><td>Pediatria</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>13:00</td><td>Bruno Ferreira</td><td>Dr. Carlos Lima</td><td>Ortopedia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>13:30</td><td>Amanda Dias</td><td>Dra. Mariana Souza</td><td>Dermatologia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>14:00</td><td>Lucas Martins</td><td>Dr. João Silva</td><td>Cardiologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>14:30</td><td>Beatriz Cruz</td><td>Dra. Ana Costa</td><td>Pediatria</td><td><span class="status-badge status-cancelada">Cancelada</span></td><td><button class="btn btn-danger btn-sm">✕</button></td></tr>
+                            <tr><td>15:00</td><td>Rodrigo Silva</td><td>Dr. Carlos Lima</td><td>Ortopedia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>15:30</td><td>Tatiane Oliveira</td><td>Dra. Mariana Souza</td><td>Dermatologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>16:00</td><td>Diego Costa</td><td>Dr. João Silva</td><td>Cardiologia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>16:30</td><td>Vanessa Souza</td><td>Dra. Ana Costa</td><td>Pediatria</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                            <tr><td>17:00</td><td>Gabriel Lima</td><td>Dr. Carlos Lima</td><td>Ortopedia</td><td><span class="status-badge status-agendada">Pendente</span></td><td><button class="btn btn-warning btn-sm">✎</button></td></tr>
+                            <tr><td>17:30</td><td>Camila Alves</td><td>Dra. Mariana Souza</td><td>Dermatologia</td><td><span class="status-badge status-confirmada">Confirmada</span></td><td><button class="btn btn-success btn-sm">✓</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- AÇÕES RÁPIDAS -->
+            <div class="quick-actions">
+                <h3 class="section-title">Ações Rápidas</h3>
+                <div class="action-buttons">
+                    <a href="consultas.html" class="action-btn">
+                        <span class="action-icon">➕</span>
+                        Nova Consulta
+                    </a>
+                    <a href="pacientes.html" class="action-btn">
+                        <span class="action-icon">👤</span>
+                        Novo Paciente
+                    </a>
+                    <a href="agenda.html" class="action-btn">
+                        <span class="action-icon">📋</span>
+                        Ver Agenda
+                    </a>
+                    <a href="#" class="action-btn">
+                        <span class="action-icon">📊</span>
+                        Relatórios
+                    </a>
+                </div>
+
+                <!-- PRÓXIMAS CONSULTAS -->
+                <div class="today-appointments">
+                    <h4 style="margin-bottom: 1rem; color: #2c3e50;">Próximas Consultas</h4>
+                    <div class="appointment-item">
+                        <div class="appointment-time">14:00</div>
+                        <div class="appointment-info">
+                            <div class="appointment-patient">Roberto Santos</div>
+                            <div class="appointment-doctor">Dr. João Silva - Cardiologia</div>
+                        </div>
+                        <span class="appointment-status" style="background: #d4edda; color: #155724;">Confirmada</span>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="appointment-time">14:30</div>
+                        <div class="appointment-info">
+                            <div class="appointment-patient">Patrícia Rocha</div>
+                            <div class="appointment-doctor">Dra. Ana Costa - Pediatria</div>
+                        </div>
+                        <span class="appointment-status" style="background: #d4edda; color: #155724;">Confirmada</span>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="appointment-time">15:00</div>
+                        <div class="appointment-info">
+                            <div class="appointment-patient">Bruno Ferreira</div>
+                            <div class="appointment-doctor">Dr. Carlos Lima - Ortopedia</div>
+                        </div>
+                        <span class="appointment-status" style="background: #fff3cd; color: #856404;">Pendente</span>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="appointment-time">15:30</div>
+                        <div class="appointment-info">
+                            <div class="appointment-patient">Tatiane Oliveira</div>
+                            <div class="appointment-doctor">Dra. Mariana Souza - Dermatologia</div>
+                        </div>
+                        <span class="appointment-status" style="background: #d4edda; color: #155724;">Confirmada</span>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="appointment-time">16:00</div>
+                        <div class="appointment-info">
+                            <div class="appointment-patient">Diego Costa</div>
+                            <div class="appointment-doctor">Dr. João Silva - Cardiologia</div>
+                        </div>
+                        <span class="appointment-status" style="background: #fff3cd; color: #856404;">Pendente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Data atual
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = 
+                now.toLocaleDateString('pt-BR', options);
+        }
+
+        // Menu mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCurrentDate();
+        });
+    </script>
+</body>
+</html>
